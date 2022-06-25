@@ -1,10 +1,22 @@
-import { ReactText } from "react";
-import { Text, View, Pressable, StyleSheet } from "react-native";
+import { Component, JSXElementConstructor, ReactNode, ReactText } from "react";
+import { Text, View, Pressable, StyleSheet, TextProps } from "react-native";
 import Colors from "../../constants/colors";
+import { Ionicons } from '@expo/vector-icons';
 
 interface IPrimaryButton {
-  children: ReactText;
+  children: TextProps['children'];
   onPress: () => void;
+}
+
+// type TIonicIcons = React.Component<keyof typeof Ionicons.glyphMap>
+
+type ITextProps = Text['props'] & {
+  children: ReactNode | ReactText,
+  style: { [x: string]: any }
+}
+
+const ExtendsText = (props: ITextProps) => {
+  return <Text style={props.style} >{props.children}</Text>
 }
 
 const PrimaryButton: React.FC<IPrimaryButton> = ({ children, onPress }) => {
@@ -19,7 +31,8 @@ const PrimaryButton: React.FC<IPrimaryButton> = ({ children, onPress }) => {
         onPress={onPress}
         android_ripple={{ color: Colors.primary600 }}
       >
-        <Text style={styles.buttonText}>{children}</Text>
+        <ExtendsText style={styles.buttonText}>{children}</ExtendsText>
+        {/* <Text style={styles.buttonText}>{children}</Text> */}
       </Pressable>
     </View>
   );

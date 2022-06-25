@@ -4,13 +4,15 @@ import Colors from "../../constants/colors";
 
 type TInstructionText = {
   children: ReactText;
+  style: {[x:string] : any}
 };
 
-const InstructionText: React.FC<TInstructionText> = ({ children }) => {
-  return <Text style={styles.instructionText}>{children}</Text>;
+const InstructionText: React.FC<TInstructionText> = ({ children, style = {} }) => {
+  return <Text style={[styles.instructionText, style]}>{children}</Text>;
 };
 const styles = StyleSheet.create({
   instructionText: {
+    fontFamily: 'open-sans-bold',
     color: Colors.accent500,
     fontSize: 24,
   },
